@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Analytical Platform — Energy Time Series</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Sora:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <div class="app">
+      <header class="hero">
+        <div>
+          <p class="eyebrow">Analytical Platform</p>
+          <h1>Energy Time Series Explorer</h1>
+          <p class="subtitle">
+            Explore annual energy indicators from Our World in Data with quick
+            metrics and charts.
+          </p>
+          <div class="badge-row">
+            <span class="badge">Yearly data</span>
+            <span class="badge">OWID Energy</span>
+            <span class="badge">MongoDB + Chart.js</span>
+          </div>
+        </div>
+        <div class="legend">
+          <p class="legend-title">Field mapping</p>
+          <ul>
+            <li><strong>field1</strong> Electricity demand per capita</li>
+            <li><strong>field2</strong> Carbon intensity of electricity</li>
+            <li><strong>field3</strong> Energy per capita</li>
+          </ul>
+        </div>
+      </header>
+
+      <main class="grid">
+        <div class="stack">
+          <section class="panel controls">
+            <h2>Filters</h2>
+            <form id="controlsForm">
+              <div class="form-row">
+                <label for="field">Metric</label>
+                <select id="field" name="field">
+                  <option value="field1" selected>
+                    Electricity demand per capita
+                  </option>
+                  <option value="field2">
+                    Carbon intensity of electricity
+                  </option>
+                  <option value="field3">Energy per capita</option>
+                </select>
+              </div>
+
+              <div class="form-row">
+                <label for="isoCode">ISO code (optional)</label>
+                <input
+                  id="isoCode"
+                  name="isoCode"
+                  list="isoCodes"
+                  value="KAZ"
+                  maxlength="3"
+                  placeholder="KAZ"
+                />
+                <datalist id="isoCodes">
+                  <option value="KAZ">Kazakhstan</option>
+                  <option value="USA">United States</option>
+                  <option value="CHN">China</option>
+                  <option value="IND">India</option>
+                  <option value="BRA">Brazil</option>
+                  <option value="DEU">Germany</option>
+                  <option value="FRA">France</option>
+                  <option value="GBR">United Kingdom</option>
+                  <option value="JPN">Japan</option>
+                  <option value="KOR">South Korea</option>
+                  <option value="AUS">Australia</option>
+                  <option value="CAN">Canada</option>
+                  <option value="ZAF">South Africa</option>
+                  <option value="SAU">Saudi Arabia</option>
+                  <option value="TUR">Turkey</option>
+                </datalist>
+                <p class="hint">
+                  Leave empty to view all countries (noisy but complete).
+                </p>
+              </div>
+
+              <div class="form-row two-col">
+                <div>
+                  <label for="startYear">Start year</label>
+                  <select id="startYear" name="startYear"></select>
+                </div>
+                <div>
+                  <label for="endYear">End year</label>
+                  <select id="endYear" name="endYear"></select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <label for="chartType">Chart type</label>
+                <select id="chartType" name="chartType">
+                  <option value="line" selected>Line</option>
+                  <option value="bar">Bar</option>
+                </select>
+              </div>
+
+              <button id="loadButton" type="submit">Load</button>
+              <p id="status" class="status">Ready.</p>
+              <div id="error" class="error" role="alert"></div>
+            </form>
+          </section>
+
+          <section class="panel metrics">
+            <h2>Metrics</h2>
+            <div class="metrics-grid">
+              <div class="metric">
+                <span>Count</span>
+                <strong id="metric-count">—</strong>
+              </div>
+              <div class="metric">
+                <span>Average</span>
+                <strong id="metric-avg">—</strong>
+              </div>
+              <div class="metric">
+                <span>Minimum</span>
+                <strong id="metric-min">—</strong>
+              </div>
+              <div class="metric">
+                <span>Maximum</span>
+                <strong id="metric-max">—</strong>
+              </div>
+              <div class="metric">
+                <span>Std. dev</span>
+                <strong id="metric-stdDev">—</strong>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <section class="panel chart-panel">
+          <div class="panel-header">
+            <h2>Series</h2>
+            <p id="seriesMeta" class="meta">Select filters to load data.</p>
+          </div>
+          <div class="chart-wrapper">
+            <canvas id="chart"></canvas>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
