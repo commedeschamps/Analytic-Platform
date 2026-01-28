@@ -67,26 +67,14 @@
                   maxlength="3"
                   placeholder="KAZ"
                 />
-                <datalist id="isoCodes">
-                  <option value="KAZ">Kazakhstan</option>
-                  <option value="USA">United States</option>
-                  <option value="CHN">China</option>
-                  <option value="IND">India</option>
-                  <option value="BRA">Brazil</option>
-                  <option value="DEU">Germany</option>
-                  <option value="FRA">France</option>
-                  <option value="GBR">United Kingdom</option>
-                  <option value="JPN">Japan</option>
-                  <option value="KOR">South Korea</option>
-                  <option value="AUS">Australia</option>
-                  <option value="CAN">Canada</option>
-                  <option value="ZAF">South Africa</option>
-                  <option value="SAU">Saudi Arabia</option>
-                  <option value="TUR">Turkey</option>
-                </datalist>
+                <datalist id="isoCodes"></datalist>
                 <p class="hint">
                   Leave empty to view all countries (noisy but complete).
                 </p>
+                <details class="iso-details">
+                  <summary>ISO code list</summary>
+                  <div class="iso-chips" id="isoList"></div>
+                </details>
               </div>
 
               <div class="form-row two-col">
